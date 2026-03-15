@@ -103,14 +103,25 @@ public class Inventario {
             i++;
         }
 
-        System.out.print("\nIngrese la categoria del producto que desea agregar: ");
+        System.out.print("\nIngrese el numero o nombre de la categoria: ");
         String categoriaIngresada = scanner.nextLine().trim();
 
-        // Verificar si la categoría existe
-        if (!categorias.containsKey(categoriaIngresada)) {
-            System.out.println("\n*** ERROR: La categoria '" + categoriaIngresada + "' no existe en el inventario. ***");
-            System.out.println("Por favor, ingrese una categoria valida de la lista mostrada.");
-            return;
+        // Intentar interpretar como numero
+        try {
+            int numCategoria = Integer.parseInt(categoriaIngresada);
+            if (numCategoria >= 1 && numCategoria <= listaCategorias.size()) {
+                categoriaIngresada = listaCategorias.get(numCategoria - 1);
+            } else {
+                System.out.println("\n*** ERROR: Numero fuera de rango. Ingrese un numero entre 1 y " + listaCategorias.size() + ". ***");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            // No es un numero, verificar si es un nombre de categoria valido
+            if (!categorias.containsKey(categoriaIngresada)) {
+                System.out.println("\n*** ERROR: La categoria '" + categoriaIngresada + "' no existe en el inventario. ***");
+                System.out.println("Por favor, ingrese una categoria valida de la lista mostrada.");
+                return;
+            }
         }
 
         // Mostrar productos de esa categoría
