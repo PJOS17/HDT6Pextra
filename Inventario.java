@@ -14,6 +14,17 @@ import java.util.Scanner;
  */
 public class Inventario {
 
+    /**
+     * Método auxiliar para repetir un string (compatible con Java 8).
+     */
+    private static String repetir(String s, int count) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+
     // Map: producto -> categoría (inventario completo)
     private Map<String, String> inventario;
 
@@ -45,9 +56,18 @@ public class Inventario {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(archivo), "UTF-8"))) {
             String linea;
+            boolean primeraLinea = true;
             while ((linea = br.readLine()) != null) {
                 linea = linea.trim();
                 if (linea.isEmpty()) continue;
+
+                // Saltar la línea de encabezado
+                if (primeraLinea) {
+                    primeraLinea = false;
+                    if (linea.toLowerCase().contains("categor")) {
+                        continue;
+                    }
+                }
 
                 String[] partes = linea.split("\\|");
                 if (partes.length == 2) {
@@ -152,7 +172,7 @@ public class Inventario {
         }
 
         System.out.printf("%-35s %-25s %-10s%n", "Producto", "Categoría", "Cantidad");
-        System.out.println("-".repeat(70));
+        System.out.println(repetir("-", 70));
 
         for (Map.Entry<String, Integer> entry : coleccionUsuario.entrySet()) {
             String producto = entry.getKey();
@@ -187,7 +207,7 @@ public class Inventario {
         }
 
         System.out.printf("%-25s %-35s %-10s%n", "Categoría", "Producto", "Cantidad");
-        System.out.println("-".repeat(70));
+        System.out.println(repetir("-", 70));
 
         for (Map.Entry<String, List<String[]>> entry : porCategoria.entrySet()) {
             String categoria = entry.getKey();
@@ -207,7 +227,7 @@ public class Inventario {
         long inicio = System.nanoTime();
 
         System.out.printf("%-35s %-25s%n", "Producto", "Categoría");
-        System.out.println("-".repeat(60));
+        System.out.println(repetir("-", 60));
 
         for (Map.Entry<String, String> entry : inventario.entrySet()) {
             System.out.printf("%-35s %-25s%n", entry.getKey(), entry.getValue());
@@ -216,7 +236,7 @@ public class Inventario {
         long fin = System.nanoTime();
         double tiempoMs = (fin - inicio) / 1_000_000.0;
 
-        System.out.println("-".repeat(60));
+        System.out.println(repetir("-", 60));
         System.out.println("Total de productos: " + inventario.size());
         System.out.printf("Tiempo de ejecución: %.4f ms%n", tiempoMs);
     }
@@ -243,7 +263,7 @@ public class Inventario {
         }
 
         System.out.printf("%-25s %-35s%n", "Categoría", "Producto");
-        System.out.println("-".repeat(60));
+        System.out.println(repetir("-", 60));
 
         for (Map.Entry<String, List<String>> entry : porCategoria.entrySet()) {
             String categoria = entry.getKey();
@@ -255,7 +275,7 @@ public class Inventario {
         long fin = System.nanoTime();
         double tiempoMs = (fin - inicio) / 1_000_000.0;
 
-        System.out.println("-".repeat(60));
+        System.out.println(repetir("-", 60));
         System.out.printf("Tiempo de ejecución: %.4f ms%n", tiempoMs);
     }
 }
