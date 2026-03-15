@@ -1,64 +1,77 @@
 import java.util.Scanner;
+import java.io.PrintStream;
 
 /**
  * Clase principal del sistema de inventario de supermercado.
- * Utiliza el patrón de diseño Factory para seleccionar la implementación de MAP.
+ * Utiliza el patron de diseno Factory para seleccionar la implementacion de
+ * MAP.
  * 
  * Operaciones disponibles:
- * 1. Agregar producto a la colección del usuario
- * 2. Mostrar categoría de un producto
- * 3. Mostrar colección del usuario (producto, categoría, cantidad)
- * 4. Mostrar colección del usuario ordenada por categoría
+ * 1. Agregar producto a la coleccion del usuario
+ * 2. Mostrar categoria de un producto
+ * 3. Mostrar coleccion del usuario (producto, categoria, cantidad)
+ * 4. Mostrar coleccion del usuario ordenada por categoria
  * 5. Mostrar inventario completo
- * 6. Mostrar inventario completo ordenado por categoría
+ * 6. Mostrar inventario completo ordenado por categoria
  */
 public class Main {
 
     public static void main(String[] args) {
+        // Configurar consola para UTF-8 en Windows
+        try {
+            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "chcp", "65001");
+            pb.inheritIO();
+            Process p = pb.start();
+            p.waitFor();
+            System.setOut(new PrintStream(System.out, true, "UTF-8"));
+        } catch (Exception e) {
+            // Si falla, continuar con la codificacion por defecto
+        }
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("╔══════════════════════════════════════════════════╗");
-        System.out.println("║     SISTEMA DE INVENTARIO - TIENDA ONLINE       ║");
-        System.out.println("╚══════════════════════════════════════════════════╝");
+        System.out.println("+==================================================+");
+        System.out.println("|     SISTEMA DE INVENTARIO - TIENDA ONLINE        |");
+        System.out.println("+==================================================+");
         System.out.println();
 
-        // Selección de implementación de MAP usando Factory Pattern
+        // Seleccion de implementacion de MAP usando Factory Pattern
         int tipoMap = 0;
         while (tipoMap < 1 || tipoMap > 3) {
-            System.out.println("Seleccione la implementación de MAP a utilizar:");
+            System.out.println("Seleccione la implementacion de MAP a utilizar:");
             System.out.println("  1. HashMap");
             System.out.println("  2. TreeMap");
             System.out.println("  3. LinkedHashMap");
-            System.out.print("Opción: ");
+            System.out.print("Opcion: ");
             try {
                 tipoMap = Integer.parseInt(scanner.nextLine().trim());
                 if (tipoMap < 1 || tipoMap > 3) {
-                    System.out.println("*** Opción inválida. Intente de nuevo. ***\n");
+                    System.out.println("*** Opcion invalida. Intente de nuevo. ***\n");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("*** Ingrese un número válido. ***\n");
+                System.out.println("*** Ingrese un numero valido. ***\n");
             }
         }
 
-        // Crear inventario con la implementación seleccionada
+        // Crear inventario con la implementacion seleccionada
         Inventario inventario = new Inventario(tipoMap);
         inventario.cargarInventario("inventario.txt");
 
-        // Menú principal
+        // Menu principal
         boolean continuar = true;
         while (continuar) {
-            System.out.println("\n╔══════════════════════════════════════════════════╗");
-            System.out.println("║                  MENÚ PRINCIPAL                  ║");
-            System.out.println("╠══════════════════════════════════════════════════╣");
-            System.out.println("║  1. Agregar producto a su colección              ║");
-            System.out.println("║  2. Mostrar categoría de un producto             ║");
-            System.out.println("║  3. Mostrar su colección                         ║");
-            System.out.println("║  4. Mostrar su colección ordenada por categoría  ║");
-            System.out.println("║  5. Mostrar inventario completo                  ║");
-            System.out.println("║  6. Mostrar inventario ordenado por categoría    ║");
-            System.out.println("║  7. Salir                                        ║");
-            System.out.println("╚══════════════════════════════════════════════════╝");
-            System.out.print("Seleccione una opción: ");
+            System.out.println("\n+==================================================+");
+            System.out.println("|                  MENU PRINCIPAL                  |");
+            System.out.println("+==================================================+");
+            System.out.println("|  1. Agregar producto a su coleccion              |");
+            System.out.println("|  2. Mostrar categoria de un producto             |");
+            System.out.println("|  3. Mostrar su coleccion                         |");
+            System.out.println("|  4. Mostrar su coleccion ordenada por categoria  |");
+            System.out.println("|  5. Mostrar inventario completo                  |");
+            System.out.println("|  6. Mostrar inventario ordenado por categoria    |");
+            System.out.println("|  7. Salir                                        |");
+            System.out.println("+==================================================+");
+            System.out.print("Seleccione una opcion: ");
 
             try {
                 int opcion = Integer.parseInt(scanner.nextLine().trim());
@@ -84,14 +97,14 @@ public class Main {
                         break;
                     case 7:
                         continuar = false;
-                        System.out.println("\n¡Gracias por usar el sistema! Hasta luego.");
+                        System.out.println("\nGracias por usar el sistema! Hasta luego.");
                         break;
                     default:
-                        System.out.println("*** Opción inválida. Intente de nuevo. ***");
+                        System.out.println("*** Opcion invalida. Intente de nuevo. ***");
                 }
 
             } catch (NumberFormatException e) {
-                System.out.println("*** Ingrese un número válido. ***");
+                System.out.println("*** Ingrese un numero valido. ***");
             }
         }
 

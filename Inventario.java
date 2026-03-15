@@ -94,8 +94,8 @@ public class Inventario {
      * El usuario ingresa la categoría y selecciona el producto.
      */
     public void agregarProducto(Scanner scanner) {
-        System.out.println("\n===== AGREGAR PRODUCTO A LA COLECCIÓN =====");
-        System.out.println("Categorías disponibles:");
+        System.out.println("\n===== AGREGAR PRODUCTO A LA COLECCION =====");
+        System.out.println("Categorias disponibles:");
         int i = 1;
         List<String> listaCategorias = new ArrayList<>(categorias.keySet());
         for (String cat : listaCategorias) {
@@ -103,13 +103,13 @@ public class Inventario {
             i++;
         }
 
-        System.out.print("\nIngrese la categoría del producto que desea agregar: ");
+        System.out.print("\nIngrese la categoria del producto que desea agregar: ");
         String categoriaIngresada = scanner.nextLine().trim();
 
         // Verificar si la categoría existe
         if (!categorias.containsKey(categoriaIngresada)) {
-            System.out.println("\n*** ERROR: La categoría '" + categoriaIngresada + "' no existe en el inventario. ***");
-            System.out.println("Por favor, ingrese una categoría válida de la lista mostrada.");
+            System.out.println("\n*** ERROR: La categoria '" + categoriaIngresada + "' no existe en el inventario. ***");
+            System.out.println("Por favor, ingrese una categoria valida de la lista mostrada.");
             return;
         }
 
@@ -120,11 +120,11 @@ public class Inventario {
             System.out.println("  " + (j + 1) + ". " + productos.get(j));
         }
 
-        System.out.print("\nSeleccione el número del producto a agregar: ");
+        System.out.print("\nSeleccione el numero del producto a agregar: ");
         try {
             int seleccion = Integer.parseInt(scanner.nextLine().trim());
             if (seleccion < 1 || seleccion > productos.size()) {
-                System.out.println("*** ERROR: Selección fuera de rango. ***");
+                System.out.println("*** ERROR: Seleccion fuera de rango. ***");
                 return;
             }
 
@@ -137,11 +137,11 @@ public class Inventario {
                 coleccionUsuario.put(productoSeleccionado, 1);
             }
 
-            System.out.println("\n>> Producto '" + productoSeleccionado + "' agregado a su colección.");
+            System.out.println("\n>> Producto '" + productoSeleccionado + "' agregado a su coleccion.");
             System.out.println("   Cantidad actual: " + coleccionUsuario.get(productoSeleccionado));
 
         } catch (NumberFormatException e) {
-            System.out.println("*** ERROR: Ingrese un número válido. ***");
+            System.out.println("*** ERROR: Ingrese un numero valido. ***");
         }
     }
 
@@ -149,15 +149,15 @@ public class Inventario {
      * Opción 2: Mostrar la categoría de un producto dado su nombre.
      */
     public void mostrarCategoria(Scanner scanner) {
-        System.out.println("\n===== BUSCAR CATEGORÍA DE UN PRODUCTO =====");
+        System.out.println("\n===== BUSCAR CATEGORIA DE UN PRODUCTO =====");
         System.out.print("Ingrese el nombre del producto: ");
         String producto = scanner.nextLine().trim();
 
         if (inventario.containsKey(producto)) {
             System.out.println("\nProducto: " + producto);
-            System.out.println("Categoría: " + inventario.get(producto));
+            System.out.println("Categoria: " + inventario.get(producto));
         } else {
-            System.out.println("\n*** ERROR: El producto '" + producto + "' no se encontró en el inventario. ***");
+            System.out.println("\n*** ERROR: El producto '" + producto + "' no se encontro en el inventario. ***");
         }
     }
 
@@ -165,13 +165,13 @@ public class Inventario {
      * Opción 3: Mostrar la colección del usuario con categoría y cantidad.
      */
     public void mostrarColeccion() {
-        System.out.println("\n===== COLECCIÓN DEL USUARIO =====");
+        System.out.println("\n===== COLECCION DEL USUARIO =====");
         if (coleccionUsuario.isEmpty()) {
-            System.out.println("Su colección está vacía. Agregue productos con la opción 1.");
+            System.out.println("Su coleccion esta vacia. Agregue productos con la opcion 1.");
             return;
         }
 
-        System.out.printf("%-35s %-25s %-10s%n", "Producto", "Categoría", "Cantidad");
+        System.out.printf("%-35s %-25s %-10s%n", "Producto", "Categoria", "Cantidad");
         System.out.println(repetir("-", 70));
 
         for (Map.Entry<String, Integer> entry : coleccionUsuario.entrySet()) {
@@ -186,9 +186,9 @@ public class Inventario {
      * Opción 4: Mostrar la colección del usuario ordenada por categoría.
      */
     public void mostrarColeccionOrdenada() {
-        System.out.println("\n===== COLECCIÓN DEL USUARIO (ORDENADA POR CATEGORÍA) =====");
+        System.out.println("\n===== COLECCION DEL USUARIO (ORDENADA POR CATEGORIA) =====");
         if (coleccionUsuario.isEmpty()) {
-            System.out.println("Su colección está vacía. Agregue productos con la opción 1.");
+            System.out.println("Su coleccion esta vacia. Agregue productos con la opcion 1.");
             return;
         }
 
@@ -206,7 +206,7 @@ public class Inventario {
             porCategoria.get(categoria).add(new String[]{producto, String.valueOf(cantidad)});
         }
 
-        System.out.printf("%-25s %-35s %-10s%n", "Categoría", "Producto", "Cantidad");
+        System.out.printf("%-25s %-35s %-10s%n", "Categoria", "Producto", "Cantidad");
         System.out.println(repetir("-", 70));
 
         for (Map.Entry<String, List<String[]>> entry : porCategoria.entrySet()) {
@@ -226,7 +226,7 @@ public class Inventario {
 
         long inicio = System.nanoTime();
 
-        System.out.printf("%-35s %-25s%n", "Producto", "Categoría");
+        System.out.printf("%-35s %-25s%n", "Producto", "Categoria");
         System.out.println(repetir("-", 60));
 
         for (Map.Entry<String, String> entry : inventario.entrySet()) {
@@ -238,14 +238,14 @@ public class Inventario {
 
         System.out.println(repetir("-", 60));
         System.out.println("Total de productos: " + inventario.size());
-        System.out.printf("Tiempo de ejecución: %.4f ms%n", tiempoMs);
+        System.out.printf("Tiempo de ejecucion: %.4f ms%n", tiempoMs);
     }
 
     /**
      * Opción 6: Mostrar todos los productos del inventario ordenados por categoría.
      */
     public void mostrarInventarioOrdenado() {
-        System.out.println("\n===== INVENTARIO COMPLETO (ORDENADO POR CATEGORÍA) =====");
+        System.out.println("\n===== INVENTARIO COMPLETO (ORDENADO POR CATEGORIA) =====");
 
         long inicio = System.nanoTime();
 
@@ -262,7 +262,7 @@ public class Inventario {
             porCategoria.get(categoria).add(producto);
         }
 
-        System.out.printf("%-25s %-35s%n", "Categoría", "Producto");
+        System.out.printf("%-25s %-35s%n", "Categoria", "Producto");
         System.out.println(repetir("-", 60));
 
         for (Map.Entry<String, List<String>> entry : porCategoria.entrySet()) {
@@ -276,6 +276,6 @@ public class Inventario {
         double tiempoMs = (fin - inicio) / 1_000_000.0;
 
         System.out.println(repetir("-", 60));
-        System.out.printf("Tiempo de ejecución: %.4f ms%n", tiempoMs);
+        System.out.printf("Tiempo de ejecucion: %.4f ms%n", tiempoMs);
     }
 }
