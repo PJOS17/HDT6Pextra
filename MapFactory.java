@@ -10,7 +10,9 @@ import java.util.Map;
 public class MapFactory {
 
     /**
-     * Crea y retorna una instancia de Map según la opción seleccionada.
+     * Crea y retorna una instancia de Map según la opción seleccionada
+     * anteriormente.
+     * 
      * @param opcion 1 = HashMap, 2 = TreeMap, 3 = LinkedHashMap
      * @return una nueva instancia de Map
      */
@@ -26,7 +28,8 @@ public class MapFactory {
                 System.out.println(">> Usando LinkedHashMap");
                 return new LinkedHashMap<>();
             default:
-                throw new IllegalArgumentException("Opción inválida. Seleccione 1 (HashMap), 2 (TreeMap) o 3 (LinkedHashMap).");
+                throw new IllegalArgumentException(
+                        "Opción inválida. Seleccione 1 (HashMap), 2 (TreeMap) o 3 (LinkedHashMap).");
         }
     }
 }

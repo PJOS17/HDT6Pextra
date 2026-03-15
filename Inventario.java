@@ -25,20 +25,22 @@ public class Inventario {
         return sb.toString();
     }
 
-    // Map: producto -> categoría (inventario completo)
+    // Map: producto -> categoría (inventario completo).
     private Map<String, String> inventario;
 
-    // Map: producto -> cantidad (colección del usuario)
+    // Map: producto -> cantidad (colección del usuario).
     private Map<String, Integer> coleccionUsuario;
 
-    // Map: categoría -> lista de productos (índice por categoría)
+    // Map: categoría -> lista de productos (índice por categoría).
     private Map<String, List<String>> categorias;
 
     private int tipoMap;
 
     /**
      * Constructor que inicializa los mapas usando MapFactory.
-     * @param tipoMap tipo de implementación de Map (1=HashMap, 2=TreeMap, 3=LinkedHashMap)
+     * 
+     * @param tipoMap tipo de implementación de Map (1=HashMap, 2=TreeMap,
+     *                3=LinkedHashMap)
      */
     public Inventario(int tipoMap) {
         this.tipoMap = tipoMap;
@@ -50,6 +52,7 @@ public class Inventario {
     /**
      * Carga el inventario desde un archivo de texto.
      * Formato esperado: Categoría|Producto
+     * 
      * @param archivo ruta del archivo a leer
      */
     public void cargarInventario(String archivo) {
@@ -59,7 +62,8 @@ public class Inventario {
             boolean primeraLinea = true;
             while ((linea = br.readLine()) != null) {
                 linea = linea.trim();
-                if (linea.isEmpty()) continue;
+                if (linea.isEmpty())
+                    continue;
 
                 // Saltar la línea de encabezado
                 if (primeraLinea) {
@@ -112,13 +116,15 @@ public class Inventario {
             if (numCategoria >= 1 && numCategoria <= listaCategorias.size()) {
                 categoriaIngresada = listaCategorias.get(numCategoria - 1);
             } else {
-                System.out.println("\n*** ERROR: Numero fuera de rango. Ingrese un numero entre 1 y " + listaCategorias.size() + ". ***");
+                System.out.println("\n*** ERROR: Numero fuera de rango. Ingrese un numero entre 1 y "
+                        + listaCategorias.size() + ". ***");
                 return;
             }
         } catch (NumberFormatException e) {
             // No es un numero, verificar si es un nombre de categoria valido
             if (!categorias.containsKey(categoriaIngresada)) {
-                System.out.println("\n*** ERROR: La categoria '" + categoriaIngresada + "' no existe en el inventario. ***");
+                System.out.println(
+                        "\n*** ERROR: La categoria '" + categoriaIngresada + "' no existe en el inventario. ***");
                 System.out.println("Por favor, ingrese una categoria valida de la lista mostrada.");
                 return;
             }
@@ -214,7 +220,7 @@ public class Inventario {
             if (!porCategoria.containsKey(categoria)) {
                 porCategoria.put(categoria, new ArrayList<>());
             }
-            porCategoria.get(categoria).add(new String[]{producto, String.valueOf(cantidad)});
+            porCategoria.get(categoria).add(new String[] { producto, String.valueOf(cantidad) });
         }
 
         System.out.printf("%-25s %-35s %-10s%n", "Categoria", "Producto", "Cantidad");
