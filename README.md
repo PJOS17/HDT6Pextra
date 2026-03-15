@@ -1,6 +1,6 @@
 # HDT6Pextra
-
-Sistema de inventario de tienda online implementado en Java.
+Integrantes:
+Pablo Orantes 25563 y Jose Hernandez 25041
 
 Utiliza el patrón de diseño **Factory** para seleccionar entre las implementaciones de MAP:
 1. HashMap
